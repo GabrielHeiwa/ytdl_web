@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "build": "next build"
+  },
   "dependencies": {
     "axios": "^0.21.1",
     "next": "^10.0.6",
