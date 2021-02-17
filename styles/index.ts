@@ -107,7 +107,7 @@ export const HomePageContent = styled.div`
         };
     };
 
-    div.ProgressBar {
+    div.ProgressBarContainer {
         grid-area: p;
         
         width: 90%;
@@ -117,11 +117,50 @@ export const HomePageContent = styled.div`
         justify-self: center;
         align-self: center;
 
-        background-color: red;
 
-        div.StartCovertText {
-            position: absolute;
-            bottom: 0px;
+        div.progressBar {
+            background-color: #d3d3d3;
+            /* width: 10%; */
+
+            animation: 1s progress-bar-animation infinite;
+
+            @keyframes progress-bar-animation {
+                0% {
+                    background-position: 0%;
+                    width: 0%;
+                };
+                100% {
+                    background-position: 100%;
+                    width: 100%;
+                };
+            };
         };
+
+        
+    };
+
+    div.StartCovertText {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 15vw;
+            height: 5vh;
+            bottom: 25px;
+
+            border: 1px solid #333;
+            border-radius: 4px;
+
+            animation: 0.3s text-status-download-complete;
+
+            @keyframes text-status-download-complete {
+                0% {
+                    bottom: 0px;
+                };
+                100% {
+                    bottom: 25px; 
+                };
+            };
     };
 `;

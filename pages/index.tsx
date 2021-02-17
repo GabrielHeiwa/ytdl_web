@@ -10,9 +10,11 @@ import Axios from "axios";
 export default function Home() {
     const inputYoutubeVideoURL = useRef<HTMLInputElement>(null),
         selectTypeFormat = useRef<HTMLSelectElement>(null),
-        selectTypeQuality = useRef<HTMLSelectElement>(null);
+        selectTypeQuality = useRef<HTMLSelectElement>(null),
+        divProgressBar = useRef<HTMLDivElement>(null);
 
     const [loading, setLoading] = useState<boolean>(false);
+    const [downloadFinish, setDownloadFinish] = useState<boolean>(false);
 
     async function convertYoutubeVideo() {
         setLoading(current => !current);
@@ -25,15 +27,15 @@ export default function Home() {
             },
             method: "POST",
         }).then(res => {
-            console.log(res)
             if (res.status === 200) {
+                setDownloadFinish(current => !current);
+
                 const ancor = document.createElement("a");
                 ancor.href = res.data;
-                ancor.download = "hello.mp3";
                 ancor.click();
 
-                alert("Convert complete, downlaod has been started.");
                 setLoading(current => !current);
+                setTimeout(() => setDownloadFinish(current => !current), 1500);
             };
         });
     };
@@ -69,11 +71,19 @@ export default function Home() {
                         Converter
                 </button>
                 </div>
-                {loading && <div className="ProgressBar">
-                    <div className="StartCovertText">
+                {
+                    loading && <div className="ProgressBarContainer">
+                        <div
+                            ref={divProgressBar}
+                            className="progressBar"></div>
+                    </div>
+                }
+
+                {
+                    downloadFinish && <div className="StartCovertText">
                         Your vídeo has been convert.
-                </div>
-                </div>}
+                            </div>
+                }
             </HomePageContent>
         </HomePageContainer>
     </>
